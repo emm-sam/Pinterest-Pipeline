@@ -3,6 +3,7 @@ import botocore
 import json
 import os
 import shutil
+import uuid
 from json import loads
 from kafka import KafkaConsumer
 
@@ -13,28 +14,12 @@ dir_path = path + '/bucket'
 
 batch_consumer = KafkaConsumer(
     bootstrap_servers="localhost:9092",    
-    value_deserializer=lambda message: loads(message), 
+    value_deserializer=lambda message: json.loads(message), 
     auto_offset_reset="earliest"
 )
 
 batch_consumer.subscribe(topics=["PinterestTopic"])
 batch_consumer.poll()
-
-# i = 0
-# for fact in batch_consumer:
-#     timestamp = fact.timestamp
-#     file_name = f'{timestamp}.json'
-#     with open(os.path.join(dir_path, file_name), 'w') as f:
-#         json.dump(fact, f)
-#     # s3.upload_file(file_name, bucket, file_name)
-#     i += 1
-#     if i == 10:
-#         break
-
-# for (root, dirs, files) in os.walk(dir_path):
-#     for file in files:
-#         s3.upload_file(os.path.join(root,file),bucket,file)
-# shutil.rmtree(dir_path)
 
 def batch_to_directory(consumer : str , dir_path : str, number_facts : int):
     '''
@@ -49,10 +34,10 @@ def batch_to_directory(consumer : str , dir_path : str, number_facts : int):
         os.makedirs(dir_path)
     i = 0
     for fact in batch_consumer:
-        timestamp = fact.timestamp
-        file_name = f'{timestamp}.json'
+        file_name = f'{i}.json'
+        json_string = fact[6]
         with open(os.path.join(dir_path, file_name), 'w') as f:
-            json.dump(fact, f)
+            json.dump(json_string, f)
         i += 1
         if i == number_facts:
             break
