@@ -8,7 +8,7 @@ from json import loads
 from kafka import KafkaConsumer
 
 s3 = boto3.client('s3')
-bucket = 'pintaic'
+bucket = 'aicpinterest'
 path = os.getcwd()
 dir_path = path + '/bucket'
 
@@ -53,5 +53,5 @@ def upload_dir_S3(dir_path : str):
             if result:
                 shutil.rmtree(dir_path)
 
-batch_to_directory(consumer=batch_consumer , dir_path=dir_path, number_facts=10)
+batch_to_directory(consumer=batch_consumer , dir_path=dir_path, number_facts=20)
 upload_dir_S3(dir_path=dir_path)
