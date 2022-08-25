@@ -36,11 +36,12 @@ class S3SparkCassandra:
         '''
 
         # replaces missing data with null value 
-        self.spark_df = self.spark_df.na.replace('Image src error.', None)
-        self.spark_df = self.spark_df('N,o, ,T,a,g,s, ,A,v,a,i,l,a,b,l,e', None)
-        self.spark_df = self.spark_df('User Info Error', None)
-        self.spark_df = self.spark_df('No description available Story format', None)
-        self.spark_df = self.spark_df('No Title Data Available', None)
+        self.spark_df = self.spark_df.na.replace('Image src error.', None) \
+            .na.replace('N,o, ,T,a,g,s, ,A,v,a,i,l,a,b,l,e', None) \
+            .na.replace('N,o, ,T,a,g,s, ,A,v,a,i,l,a,b,l,e', None) \
+            .na.replace('User Info Error', None) \
+            .na.replace('No description available Story format', None) \
+            .na.replace('No Title Data Available', None) \
 
         # renames the column 'index'
         self.spark_df = self.spark_df.withColumnRenamed('index', 'id_index')
@@ -75,9 +76,9 @@ class S3SparkCassandra:
         print("Writing spark data to cassandra")
 
     def runthrough(self):
-        self.reads_s3
-        self.spark_transforms_data
-        self.write_to_cassandra
+        self.__reads_s3()
+        self.__spark_transforms_data()
+        self.__write_to_cassandra()
 
 if __name__ == '__main__':
     batch_job = S3SparkCassandra()
