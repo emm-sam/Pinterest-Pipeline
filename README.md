@@ -41,7 +41,20 @@ This defines the airflow job of running the s3_spark.py file once a day at 0800 
 _______________________________________________________________________________________
 
 ### Stream processing 
-Kafka Consumer -> Spark Streaming -> Postgres 
+Kafka -> Spark Streaming -> Postgres 
 
-Prometheus and Grafana: monitoring postgres 
+Prometheus and Grafana: monitoring postgres
+
+##### kafka_sparkstream.py 
+This file reads data from our Kafka topic using MAVEN pyspark packages. The data then needs to be converted from a json value into a dataframe by applying a schema. The same data cleaning steps are applied as for the batch job before the data is written to postgresql. This is perfomed in microbatches using the foreachBatch function. The data is overwritten because of the nature of the data simulation used in the project, but would usually be appended.
+https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html
+
+##### docker-compose.yml
+The metrics from postgres are connected to prometheus via the postgres exporter found at: https://github.com/prometheus-community/postgres_exporter. I found that combining the prometheus and postgres-exporter docker images was the most straightforward way to achieve this on a mac, with help from the following article: https://nelsoncode.medium.com/how-to-monitor-posgresql-with-prometheus-and-grafana-docker-36d216532ea2. Prometheus can be accessed by the localhost due to the port matching in the docker-compose file. There are extra metrics in the queries.yaml file which is mounted via a docker volume. 
+
+
+
+
+
+
 
