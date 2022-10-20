@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - /Users/emmasamouelle/prometheus.yml:/etc/prometheus/prometheus.yml
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
+    
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: pinterest
+
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    ports:
+      - 9187:9187
+    links:
+      - prometheus
+      - postgres
+    depends_on:
+      - postgres
+    command: --extend.query-path=/queries.yaml --disable-default-metrics --disable-settings-metrics
+    environment:
+      DATA_SOURCE_NAME: "postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/pinterest?sslmode=disable"
+      PG_EXPORTER_DISABLE_SETTINGS_METRICS: 'true'
+      PG_EXPORTER_EXTEND_QUERY_PATH: /Users/emmasamouelle/Desktop/Scratch/pinterest_project/pinterest_pipeline/queries.yaml
+    volumes:
+    - /Users/emmasamouelle/Desktop/Scratch/pinterest_project/pinterest_pipeline/queries.yaml:/queries.yaml

@@ -30,9 +30,8 @@ with DAG(
     schedule_interval='0 8 * * *',
     catchup=False,
     tags=['pinterest']
+    
 ) as dag:
-
-    # Define the tasks. Here we are going to define only one bash operator
     batch_task = BashOperator(
         task_id="run_s3_spark_cassandra",
         bash_command="cd /Users/emmasamouelle/Desktop/Scratch/pinterest_project/pinterest_pipeline && python3 s3_spark.py",

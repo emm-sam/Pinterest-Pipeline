@@ -3,7 +3,7 @@ from cassandra.cluster import Cluster
 
 new_cluster = Cluster()
 
-session = new_cluster.connect('pinterest') # = keyspace 
+session = new_cluster.connect('pinterest')
 
 session.execute("""CREATE TABLE pinterest_batch_new 
     (

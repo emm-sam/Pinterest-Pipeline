@@ -34,28 +34,21 @@ class S3SparkCassandra:
         '''
         This method performs some cleaning transformations on the data held in spark
         '''
-
         # replaces missing data with null value 
         self.spark_df = self.spark_df.na.replace('Image src error.', None) \
-            .na.replace('N,o, ,T,a,g,s, ,A,v,a,i,l,a,b,l,e', None) \
             .na.replace('N,o, ,T,a,g,s, ,A,v,a,i,l,a,b,l,e', None) \
             .na.replace('User Info Error', None) \
             .na.replace('No description available Story format', None) \
             .na.replace('No Title Data Available', None) \
-
         # renames the column 'index'
         self.spark_df = self.spark_df.withColumnRenamed('index', 'id_index')
-
         # changes data type to int
         self.spark_df = self.spark_df.withColumn('id_index', self.spark_df['id_index'].cast('int'))\
             .withColumn('downloaded', self.spark_df['downloaded'].cast('int'))
-
         # changes column order
         self.spark_df = self.spark_df.select('id_index', 'title', 'category', 'unique_id', 'description', 'follower_count', 'tag_list', 'is_image_or_video', 'image_src', 'downloaded', 'save_location')
-        
         # displays data
         self.spark_df.show()
-
         print("Transforming data in spark")
 
     def __write_to_cassandra(self):
@@ -67,7 +60,6 @@ class S3SparkCassandra:
         self.spark_df.write \
             .format("org.apache.spark.sql.cassandra") \
             .mode('append') \
-            .option('confirm.truncate', 'true') \
             .option("spark.cassandra.connection.host", "127.0.0.1") \
             .option("spark.cassandra.connection.port", "9042") \
             .option('keyspace', 'pinterest') \
