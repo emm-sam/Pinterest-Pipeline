@@ -28,6 +28,7 @@ ________________________________________________________________________________
 > Kafka Consumer -> Amazon S3 bucket (datalake) -> PySpark -> Cassandra -> Presto
 
 > Airflow: for orchestration
+
 > Prometheus and Grafana: for monitoring cassandra 
 
 ##### batch_consumer.py 
