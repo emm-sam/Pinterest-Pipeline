@@ -5,14 +5,19 @@
 This project is part of the AiCore career accelerator programme for Data Engineering. The aim of the project is to create an industry grade data pipeline with lambda architecture (batch and streaming processes) that manages high volumnes of data.
 
 #### Technologies Used: 
-FastAPI 
-Kafka, kafka-python
-Amazon S3 - Cloud Datalake
-Spark / PySpark
-Cassandra
-Presto
-Airflow
-Prometheus and Grafana 
+- FastAPI 
+- Kafka, kafka-python
+- Amazon S3 - Cloud Datalake
+- Spark / PySpark
+- MAVEN
+- Cassandra
+- Presto
+- Airflow
+- Prometheus and Grafana 
+- Spark Streaming
+- Postgres
+- Postgres-exporter
+- Docker
 
 #### Pinterest API (project_pin_API.py)
 The API 'listens' for data on port 8000. This data simulates what would be created when users interact with the pinterest app. The data is converted to a dictionary using a defined schema before being sent to a Kafka producer. Each message is encoded as bytes to be sent to a predifined topic. 
