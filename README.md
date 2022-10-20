@@ -61,7 +61,7 @@ ________________________________________________________________________________
 
 
 ##### kafka_sparkstream.py 
-This file reads data from our Kafka topic using MAVEN pyspark packages. The data then needs to be converted from a json value into a dataframe by applying a schema. The same data cleaning steps are applied as for the batch job before the data is written to postgresql. This is perfomed in microbatches using the foreachBatch function. The data is overwritten because of the nature of the data simulation used in the project, but would usually be appended.
+This file reads data from our Kafka topic using Maven pyspark packages. The data then needs to be converted from a json value into a dataframe by applying a schema. The same data cleaning steps are applied as for the batch job before the data is written to postgresql. This is perfomed in microbatches using the foreachBatch function. The data is overwritten because of the nature of the data simulation used in the project, but would usually be appended.
 https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html
 
 
