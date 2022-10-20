@@ -25,10 +25,10 @@ The API 'listens' for data on port 8000. This simulates the data that would be c
 ________________________________________________________________________________
 
 ### Batch Processing 
-Kafka Consumer -> Amazon S3 bucket (datalake) -> PySpark -> Cassandra -> Presto
+> Kafka Consumer -> Amazon S3 bucket (datalake) -> PySpark -> Cassandra -> Presto
 
-Airflow: for orchestration
-Prometheus and Grafana: for monitoring cassandra 
+> Airflow: for orchestration
+> Prometheus and Grafana: for monitoring cassandra 
 
 ##### batch_consumer.py 
 Consume kafka messages via kafka-python in a batch and uploads to S3 using boto3. This is only in a batch of 20 for example purposes.  
@@ -45,9 +45,9 @@ This defines the airflow job of running the s3_spark.py file once a day at 0800 
 _______________________________________________________________________________________
 
 ### Stream Processing 
-Kafka -> Spark Streaming -> Postgres 
+> Kafka -> Spark Streaming -> Postgres 
 
-Prometheus and Grafana: monitoring postgres
+> Prometheus and Grafana: monitoring postgres
 
 ##### kafka_sparkstream.py 
 This file reads data from our Kafka topic using MAVEN pyspark packages. The data then needs to be converted from a json value into a dataframe by applying a schema. The same data cleaning steps are applied as for the batch job before the data is written to postgresql. This is perfomed in microbatches using the foreachBatch function. The data is overwritten because of the nature of the data simulation used in the project, but would usually be appended.
