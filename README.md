@@ -2,14 +2,14 @@
 
 
 ### Overview 
-This project is part of the AiCore career accelerator programme for Data Engineering. The aim of the project is to create an industry grade data pipeline with lambda architecture (batch and streaming processes) that manages high volumnes of data.
+This project is part of the AiCore career accelerator programme for Data Engineering. The aim of the project is to create an industry grade data ELT pipeline with lambda architecture (batch and streaming processes) that manages high volumnes of data. There were a lot of new technologies to learn, providing an insight into each step of the process and how each are managed. The majority of the project is achieved using python, and as usual there are multiple approaches to achieve the same tasks. The main challenges for me were the configuration steps and linking technologies together. 
 
 #### Technologies Used: 
 - FastAPI 
 - Kafka, kafka-python
 - Amazon S3 - Cloud Datalake
-- Spark / PySpark
-- MAVEN
+- PySpark
+- Maven
 - Cassandra
 - Presto
 - Airflow
@@ -17,7 +17,7 @@ This project is part of the AiCore career accelerator programme for Data Enginee
 - Spark Streaming
 - Postgres
 - Postgres-exporter
-- Docker
+- Docker, docker compose 
 
 #### Pinterest API (project_pin_API.py)
 The API 'listens' for data on port 8000. This simulates the data that would be created when users interact with the pinterest app. The data is converted to a dictionary/json using a defined schema before being sent to a Kafka producer. Each message is encoded as bytes to be sent to a predifined 'topic'. 
@@ -56,10 +56,3 @@ https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html
 
 ##### docker-compose.yml
 The metrics from postgres are connected to prometheus via the postgres exporter found at: https://github.com/prometheus-community/postgres_exporter. I found that combining the prometheus and postgres-exporter docker images was the most straightforward way to achieve this on a mac, with help from the following article: https://nelsoncode.medium.com/how-to-monitor-posgresql-with-prometheus-and-grafana-docker-36d216532ea2. Prometheus can be accessed by the localhost due to the port matching in the docker-compose file. There are extra metrics in the queries.yaml file which is mounted via a docker volume. 
-
-
-
-
-
-
-
