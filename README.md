@@ -20,12 +20,11 @@ This project is part of the AiCore career accelerator programme for Data Enginee
 - Docker
 
 #### Pinterest API (project_pin_API.py)
-The API 'listens' for data on port 8000. This data simulates what would be created when users interact with the pinterest app. The data is converted to a dictionary using a defined schema before being sent to a Kafka producer. Each message is encoded as bytes to be sent to a predifined topic. 
-
+The API 'listens' for data on port 8000. This simulates the data that would be created when users interact with the pinterest app. The data is converted to a dictionary/json using a defined schema before being sent to a Kafka producer. Each message is encoded as bytes to be sent to a predifined 'topic'. 
 
 ________________________________________________________________________________
 
-### Batch processing 
+### Batch Processing 
 Kafka Consumer -> Amazon S3 bucket (datalake) -> PySpark -> Cassandra -> Presto
 
 Airflow: for orchestration
@@ -45,7 +44,7 @@ This defines the airflow job of running the s3_spark.py file once a day at 0800 
 
 _______________________________________________________________________________________
 
-### Stream processing 
+### Stream Processing 
 Kafka -> Spark Streaming -> Postgres 
 
 Prometheus and Grafana: monitoring postgres
