@@ -7,7 +7,7 @@ This project is part of the AiCore career accelerator programme for Data Enginee
 #### Technologies Used: 
 - **FastAPI** a Web framework for developing RESTful APIs in Python
 - **Kafka (kafka-python)** event streaming platform/ message broker which is highly fault-tolerant, scalable and secure.
-- **Amazon S3, cloud datalake**
+- **Amazon S3** cloud datalake
 - **PySpark** python API for Apache Spark, an open source, distributed computing framework and set of libraries for real-time, large-scale data processing. Data can be manipulated as a DataFrame or using Spark SQL.  
 - **Maven** a build automation tool used primarily for Java projects.
 - **Cassandra** an open source NoSQL distributed database.
